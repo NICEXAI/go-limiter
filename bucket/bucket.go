@@ -16,6 +16,8 @@ type Bucket struct {
 }
 
 func (b *Bucket) Get(key string) (Token, bool) {
+	key = fmt.Sprintf("limiter:bucket:%v", key)
+
 	if ok, err := b.engine.Increment(key, 1, 0, b.burst); err != nil || !ok {
 		if err != nil {
 			fmt.Println(err)
@@ -28,11 +30,6 @@ func (b *Bucket) Get(key string) (Token, bool) {
 		key:    key,
 		tokens: -1,
 	}, true
-}
-
-func (b *Bucket) Count(key string) int {
-	counter, _ := b.engine.Get(key)
-	return counter
 }
 
 func NewBucket(opt Options) *Bucket {

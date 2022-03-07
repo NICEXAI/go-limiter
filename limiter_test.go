@@ -1,8 +1,8 @@
 package go_limiter
 
 import (
-	"fmt"
 	"github.com/go-redis/redis/v8"
+	"log"
 	"math/rand"
 	"sync"
 	"sync/atomic"
@@ -13,7 +13,7 @@ import (
 func TestNewLimiterByMemory_NewBucket(t *testing.T) {
 	limiter := NewLimiterByMemory()
 	bucket := limiter.NewBucket(900)
-	key := fmt.Sprintf("limiter:bucket:%s", "test")
+	key := "test"
 	tCount := 0
 
 	for {
@@ -55,7 +55,7 @@ func TestNewLimiterByRedis_NewBucket(t *testing.T) {
 	client := redis.NewClient(&redis.Options{Addr: "127.0.0.1:6379"})
 	limiter := NewLimiterByRedis(client)
 	bucket := limiter.NewBucket(900)
-	key := fmt.Sprintf("limiter:bucket:%s", "test")
+	key := "test"
 	tCount := 0
 
 	for {
@@ -95,7 +95,7 @@ func TestNewLimiterByRedis_NewBucket(t *testing.T) {
 
 func TestNewLimiterByMemory_NewRate(t *testing.T) {
 	limiter := NewLimiterByMemory()
-	key := fmt.Sprintf("limiter:rate:%s", "test")
+	key := "test"
 	continueTime := 1000
 	tCount := 0
 
@@ -136,7 +136,7 @@ func TestNewLimiterByMemory_NewRate(t *testing.T) {
 func TestNewLimiterByRedis_NewRate(t *testing.T) {
 	client := redis.NewClient(&redis.Options{Addr: "127.0.0.1:6379"})
 	limiter := NewLimiterByRedis(client)
-	key := fmt.Sprintf("limiter:rate:%s", "test")
+	key := "test"
 	continueTime := 1000
 	tCount := 0
 
@@ -163,7 +163,7 @@ func TestNewLimiterByRedis_NewRate(t *testing.T) {
 			}()
 		}
 		wg.Wait()
-		//log.Printf("success: %v, failed: %v", successCount, failedCount)
+		log.Printf("success: %v, failed: %v", successCount, failedCount)
 		if successCount == 0 || failedCount == 0 {
 			t.Fail()
 		}

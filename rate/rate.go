@@ -1,6 +1,7 @@
 package rate
 
 import (
+	"fmt"
 	"github.com/NICEXAI/go-limiter/engine"
 	"math"
 	"time"
@@ -22,16 +23,12 @@ type Rate struct {
 }
 
 func (r *Rate) Allow(key string) bool {
+	key = fmt.Sprintf("limiter:rate:%v", key)
 	ok, err := r.engine.IncrementTo(key, -1, 0, r.burst, r.speed)
 	if err != nil {
 		return false
 	}
 	return ok
-}
-
-func (r *Rate) Count(key string) int {
-	counter, _ := r.engine.Get(key)
-	return counter
 }
 
 func NewRate(opt Options) *Rate {

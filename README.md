@@ -23,7 +23,7 @@ limiter := NewLimiterByRedis(client)
 
 2. Rate limit, for example: allow up to 20 requests per second
 ```
-key := fmt.Sprintf("limiter:rate:%s", "test")
+key := "test"
 rate := limiter.NewRate(20, 1*time.Second)
 if rate.Allow(key) {
     // normal business process
@@ -33,7 +33,7 @@ if rate.Allow(key) {
 ```
 3. Limit concurrency, for example: a single user can initiate a maximum of 10 requests at a time
 ```
-key := fmt.Sprintf("limiter:bucket:%s", "test")
+key := "test"
 bucket := limiter.NewBucket(10)
 token, ok := bucket.Get(key)
 if ok {
