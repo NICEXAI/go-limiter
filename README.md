@@ -7,7 +7,7 @@ Run the following command under your project:
 
 > go get -u github.com/NICEXAI/go-limiter
 
-### Getting started
+### Usage
 
 1. Use the `NewLimiterByMemory` or `NewLimiterByRedis` methods to initialize a Limiter
 ```
