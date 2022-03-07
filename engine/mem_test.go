@@ -1,4 +1,4 @@
-package store
+package engine
 
 import (
 	"sync"
@@ -6,7 +6,7 @@ import (
 )
 
 func TestMemory_Increment(t *testing.T) {
-	limiter := NewStoreByMemory()
+	limiter := NewEngineByMemory()
 	key := "key"
 	wg := sync.WaitGroup{}
 

@@ -1,2 +1,2 @@
-# go-rate-limiter
+# go-limiter
  Easy-to-use distributed multi-function current limiter.

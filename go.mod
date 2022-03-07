@@ -1,4 +1,4 @@
-module go-rate-limiter
+module github.com/NICEXAI/go-limiter
 
 go 1.17
 

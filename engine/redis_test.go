@@ -1,4 +1,4 @@
-package store
+package engine
 
 import (
 	"context"
@@ -9,7 +9,7 @@ import (
 
 func TestRedis_Increment(t *testing.T) {
 	client := redis.NewClient(&redis.Options{Addr: "127.0.0.1:6379"})
-	limiter := NewStoreByRedis(client)
+	limiter := NewEngineByRedis(client)
 	key := "key"
 	wg := sync.WaitGroup{}
 
