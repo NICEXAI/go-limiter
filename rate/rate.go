@@ -36,6 +36,10 @@ func (r *Rate) Count(key string) int {
 
 func NewRate(opt Options) *Rate {
 	speed := math.Floor(float64(opt.Limit) / opt.Period.Seconds())
+	// At least one access per second is allowed
+	if speed == 0 {
+		speed = 1
+	}
 
 	return &Rate{
 		engine: opt.Engine,
