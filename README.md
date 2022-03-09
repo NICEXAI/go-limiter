@@ -45,3 +45,4 @@ if ok {
     // abnormal business process
 }
 ```
+If you wish to free all the tokens, you can use the `FreeAll` method to free it.
