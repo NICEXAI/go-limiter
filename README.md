@@ -45,4 +45,4 @@ if ok {
     // abnormal business process
 }
 ```
-If you wish to free all the tokens, you can use the `FreeAll` method to free it.
+If you wish to free all the tokens, you can use the `bucket.FreeAll()` method to free it.
