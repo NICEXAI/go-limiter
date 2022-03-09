@@ -40,6 +40,7 @@ func TestNewLimiterByMemory_NewBucket(t *testing.T) {
 		}
 
 		wg.Wait()
+		log.Printf("success: %v, failed: %v", successCount, failedCount)
 		if successCount != 900 || failedCount != 100 {
 			t.Fail()
 			return
@@ -82,6 +83,7 @@ func TestNewLimiterByRedis_NewBucket(t *testing.T) {
 		}
 
 		wg.Wait()
+		log.Printf("success: %v, failed: %v", successCount, failedCount)
 		if successCount != 900 || failedCount != 100 {
 			t.Fail()
 			return
