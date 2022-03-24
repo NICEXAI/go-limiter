@@ -175,3 +175,17 @@ func TestNewLimiterByRedis_NewRate(t *testing.T) {
 		}
 	}
 }
+
+func BenchmarkNewLimiterByMemory_NewBucket(b *testing.B) {
+	limiter := NewLimiterByMemory()
+	bucket := limiter.NewBucket(900)
+	key := "test"
+	b.ResetTimer()
+
+	for i := 0; i < b.N; i++ {
+		token, ok := bucket.Get(key)
+		if ok {
+			token.Free()
+		}
+	}
+}
