@@ -22,9 +22,6 @@ func (b *Bucket) Get(key string) (*Token, bool) {
 	key = fmt.Sprintf("limiter:bucket:%v", key)
 
 	if ok, err := b.engine.Increment(key, 1, 0, b.burst); err != nil || !ok {
-		if err != nil {
-			fmt.Println(err)
-		}
 		return &Token{}, false
 	}
 

@@ -46,7 +46,7 @@ func main() {
 		}
 
 		wg.Wait()
-		log.Printf("success: %v, failed: %v, counter: %v", successCount, failedCount, rate.Count(key))
+		log.Printf("success: %v, failed: %v", successCount, failedCount)
 		//break
 	}
 }
