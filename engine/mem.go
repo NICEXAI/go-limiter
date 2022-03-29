@@ -53,7 +53,7 @@ func (m *Memory) IncrementTo(key string, delta, min, max, incr int) (bool, error
 		m.storage[key] = memData
 	}
 
-	delayTime := time.Now().Sub(memData.LastTime)
+	delayTime := time.Since(memData.LastTime)
 	offsetTime := delayTime.Milliseconds() % 1000
 
 	incrNum := int(math.Floor(delayTime.Seconds()) * float64(incr))

@@ -14,12 +14,11 @@ type Options struct {
 }
 
 type Rate struct {
-	engine   engine.Engine
-	burst    int
-	period   time.Duration
-	limit    uint
-	speed    int
-	lastTime time.Time
+	engine engine.Engine
+	burst  int
+	period time.Duration
+	limit  uint
+	speed  int
 }
 
 func (r *Rate) Allow(key string) bool {

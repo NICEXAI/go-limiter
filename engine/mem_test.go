@@ -29,3 +29,9 @@ func TestMemory_Increment(t *testing.T) {
 		t.Fail()
 	}
 }
+
+func TestMemory_IncrementTo(t *testing.T) {
+	limiter := NewEngineByMemory()
+	key := "key"
+	_, _ = limiter.IncrementTo(key, 1, 0, 100, 2)
+}
