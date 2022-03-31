@@ -9,7 +9,10 @@ import (
 
 func TestRedis_Increment(t *testing.T) {
 	client := redis.NewClient(&redis.Options{Addr: "127.0.0.1:6379"})
-	limiter := NewEngineByRedis(client)
+	limiter := NewEngineByRedis(RedisOption{
+		Client: client,
+		Expire: 10,
+	})
 	key := "key"
 	wg := sync.WaitGroup{}
 
@@ -31,6 +34,21 @@ func TestRedis_Increment(t *testing.T) {
 	wg.Wait()
 	curNum, _ := limiter.Get(key)
 	if curNum != 100000 {
+		t.Fail()
+	}
+}
+
+func TestRedis_IncrementTo(t *testing.T) {
+	client := redis.NewClient(&redis.Options{Addr: "127.0.0.1:6379"})
+	limiter := NewEngineByRedis(RedisOption{
+		Client: client,
+		Expire: 20,
+	})
+	key := "key"
+
+	client.Del(context.Background(), key)
+	_, err := limiter.IncrementTo(key, -1, 0, 5, 2)
+	if err != nil {
 		t.Fail()
 	}
 }

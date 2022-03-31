@@ -32,5 +32,5 @@ func NewLimiterByMemory() *Limiter {
 }
 
 func NewLimiterByRedis(client *redis.Client) *Limiter {
-	return &Limiter{engine: engine.NewEngineByRedis(client)}
+	return &Limiter{engine: engine.NewEngineByRedis(engine.RedisOption{Client: client})}
 }

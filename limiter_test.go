@@ -124,7 +124,7 @@ func TestNewLimiterByMemory_NewRate(t *testing.T) {
 			}()
 		}
 		wg.Wait()
-		//log.Printf("success: %v, failed: %v", successCount, failedCount)
+		log.Printf("success: %v, failed: %v", successCount, failedCount)
 		if successCount == 0 || failedCount == 0 {
 			t.Fail()
 		}
