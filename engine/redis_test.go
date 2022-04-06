@@ -52,3 +52,16 @@ func TestRedis_IncrementTo(t *testing.T) {
 		t.Fail()
 	}
 }
+
+func BenchmarkRedis_Increment(b *testing.B) {
+	client := redis.NewClient(&redis.Options{Addr: "127.0.0.1:6379"})
+	limiter := NewEngineByRedis(RedisOption{
+		Client: client,
+		Expire: 10,
+	})
+	key := "key"
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		_, _ = limiter.Increment(key, 1, 0, 100000000)
+	}
+}

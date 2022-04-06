@@ -189,3 +189,18 @@ func BenchmarkNewLimiterByMemory_NewBucket(b *testing.B) {
 		}
 	}
 }
+
+func BenchmarkNewLimiterByRedis_NewBucket(b *testing.B) {
+	client := redis.NewClient(&redis.Options{Addr: "127.0.0.1:6379"})
+	limiter := NewLimiterByRedis(client)
+	bucket := limiter.NewBucket(900)
+	key := "test"
+	b.ResetTimer()
+
+	for i := 0; i < b.N; i++ {
+		token, ok := bucket.Get(key)
+		if ok {
+			token.Free()
+		}
+	}
+}

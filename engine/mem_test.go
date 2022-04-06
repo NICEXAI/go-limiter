@@ -35,3 +35,13 @@ func TestMemory_IncrementTo(t *testing.T) {
 	key := "key"
 	_, _ = limiter.IncrementTo(key, 1, 0, 100, 2)
 }
+
+func BenchmarkMemory_Increment(b *testing.B) {
+	limiter := NewEngineByMemory()
+	key := "key"
+
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		_, _ = limiter.Increment(key, 1, 0, 100000000)
+	}
+}
